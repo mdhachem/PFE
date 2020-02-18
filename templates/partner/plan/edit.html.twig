@@ -1,0 +1,78 @@
+{% extends 'base-partner.html.twig' %}
+
+{% block title %}Edit Plan{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+.custom-file-label { opacity: 0; }
+.custom-file-input { opacity: 1; }
+
+img{
+  width: 300px;
+  display: block;
+}
+
+.form-check{
+  padding-left: 1.25rem;
+}
+
+.form-check .form-check-label {
+  margin-left: 0px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Plan</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="zmdi zmdi-home"></i> Home</a></li>
+                        <li class="breadcrumb-item active">Edit Plan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    {{ include('partner/plan/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+var $sport = $('#create_plan_governorate');
+
+$sport.change(function() {
+
+  var $form = $(this).closest('form');
+
+  var data = {};
+  data[$sport.attr('name')] = $sport.val();
+    //alert(JSON.stringify(data));
+
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    success: function(html) {
+
+      $('#create_plan_city').replaceWith(
+
+        $(html).find('#create_plan_city')
+      );
+
+    }
+  });
+});
+
+</script>
+
+{% endblock %}
+
+
+

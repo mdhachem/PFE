@@ -1,0 +1,134 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Management Categories{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .table i {
+            margin-right: 6px;
+        }
+
+        table {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        }
+
+        thead th {
+        background-color: #006DCC;
+        color: white;
+        }
+
+        tbody td {
+        background-color: #EEEEEE;
+        }
+
+        tr td:first-child,
+        tr th:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        }
+
+        tr td:last-child,
+        tr th:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        }
+    </style>
+  
+  
+{% endblock %}
+
+{% block body %}
+<div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Categories</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">Category</li>
+                        <li class="breadcrumb-item active">list</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluit">
+                {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="col">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary">Recherher</button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+        </div>
+
+
+    <table id="categories" class="table table-hover c_table theme-color">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td>{{ category.description | raw }}</td>
+                <td>
+                    <div class="btn-group mb-0">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="{{ path('category_edit',{ 'id' : category.id }) }}"><i class="mdi mdi-pencil"></i>Edit</a>
+                          <button data-id="{{ category.id }}" class="dropdown-item delete-category"><i class="mdi mdi-delete"></i>Delete</button>
+                       </div>
+					</div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(categories, null, {}, {
+                'position': 'centered',
+                'size': 'medium',
+                'rounded': true,
+                }) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+const categories = document.getElementById('categories');
+
+if (categories) {
+  categories.addEventListener('click', e => {
+    if (e.target.className === 'dropdown-item delete-category') {
+      if (confirm('Are you sure?')) {
+        const id = e.target.getAttribute('data-id');
+
+        fetch(`/admin/category/delete/${id}`, {
+          method: 'DELETE'
+        }).then(res => window.location.reload());
+      }
+    }
+  });
+}
+
+
+</script>
+
+
+{% endblock %}

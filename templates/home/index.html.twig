@@ -1,0 +1,286 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bon Plan{% endblock %}
+
+{% block stylesheets %}
+    <style>
+			form .nice-select{
+				width: 285px
+			}
+
+			form .nice-select .list{
+				width: 285px
+			}
+  	</style>
+{% endblock %}
+
+{% block body %}
+
+<section class="hero_single version_2">
+			<div class="wrapper">
+				<div class="container">
+					<h3>Find what you need!</h3>
+					<p>Discover top rated hotels, shops and restaurants around the world</p>
+					{{ form_start(form, { 'action' : '/search' }) }}
+						<div class="row no-gutters custom-search-input-2">
+							<div class="col-lg-4">
+								<div class="form-group">
+									{{ form_widget(form.plan, { 'attr': { 'list'  : 'plans' } }) }}
+									<i class="icon_search"></i>
+									<datalist id="plans"></datalist>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								<div class="form-group">
+									{{ form_widget(form.place, { 'attr': { 'list'  : 'locations' } }) }}
+									<i class="icon_pin_alt"></i>
+									<datalist id="locations"></datalist>
+								</div>
+							</div>
+							<div class="col-lg-3">
+								{{ form_widget(form.category) }}
+							</div>
+							<div class="col-lg-2">
+								<input type="submit" value="Search">
+							</div>
+						</div>
+						<!-- /row -->
+					</form>
+				</div>
+			</div>
+		</section>
+		<!-- /hero_single -->
+		
+		{{ render(controller('App\\Controller\\IncludesController::categoriesAction')) }}
+		
+		<div class="container margin_60_35">
+		{% if shops %}
+			<div class="main_title_3">
+				<span></span>
+				<h2>Top Shops</h2>
+				<p>Show All Top Shops .</p>
+				<a href="">See all</a>
+			</div>
+			<div class="row add_bottom_30">
+			{% for shop in shops %}
+				<div class="col-lg-3 col-sm-6">
+					<a href="{{ path('show.plan', { 'slug' : shop.slug , 'id' : shop.id }) }}" class="grid_item small">
+						<figure>
+							<img src="/uploads/plans/{{ shop.image }}"  width="272" height="204" alt="">
+							<div class="info">
+								<h3>{{ shop.name }}</h3>
+							</div>
+						</figure>
+					</a>
+				</div>
+			{% endfor %}
+				
+			</div>
+			{% endif %}
+			<!-- /row -->
+			{% if hotels %}
+			<div class="main_title_3">
+				<span></span>
+				<h2>Top Hotels</h2>
+				<p>Show All Top Hotels .</p>
+				<a href="#">See all</a>
+			</div>
+			<div class="row add_bottom_30">
+			{% for hotel in hotels %}
+				<div class="col-lg-3 col-sm-6">
+					<a href="{{ path('show.plan', { 'slug' : hotel.slug , 'id' : hotel.id }) }}" class="grid_item small">
+						<figure>
+							<img src="/uploads/plans/{{ hotel.image }}" width="272" height="204" alt="">
+							<div class="info">
+								<h3>{{ hotel.name }}</h3>
+							</div>
+						</figure>
+					</a>
+				</div>
+			{% endfor %}
+				
+			</div>
+			<!-- /row -->
+			{% endif %}
+			{% if restaurants %}
+			<div class="main_title_3">
+				<span></span>
+				<h2>Top Restaurants</h2>
+				<p>Show All Top Restaurants .</p>
+				<a href="#">See all</a>
+			</div>
+			<div class="row ">
+			{% for res in restaurants %}
+				<div class="col-lg-3 col-sm-6">
+					<a href="{{ path('show.plan', { 'slug' : res.slug , 'id' : res.id }) }}" class="grid_item small">
+						<figure>
+							<img src="/uploads/plans/{{ res.image }}" width="272" height="204" alt="">
+							<div class="info">
+								<h3>{{ res.name }}</h3>
+							</div>
+						</figure>
+					</a>
+				</div>
+			{% endfor %}
+				
+			</div>
+			<!-- /row -->
+			{% endif %}
+		</div>
+		<!-- /container -->
+		
+		<div class="call_section">
+			<div class="wrapper">
+				<div class="container margin_80_55">
+					<div class="main_title_2">
+						<span><em></em></span>
+						<h2>How it Works</h2>
+						<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="box_how">
+								<i class="pe-7s-search"></i>
+								<h3>Search Locations</h3>
+								<p>An nec placerat repudiare scripserit, temporibus complectitur at sea, vel ignota fierent eloquentiam id.</p>
+								<span></span>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="box_how">
+								<i class="pe-7s-info"></i>
+								<h3>View Location Info</h3>
+								<p>An nec placerat repudiare scripserit, temporibus complectitur at sea, vel ignota fierent eloquentiam id.</p>
+								<span></span>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="box_how">
+								<i class="pe-7s-like2"></i>
+								<h3>Book, Reach or Call</h3>
+								<p>An nec placerat repudiare scripserit, temporibus complectitur at sea, vel ignota fierent eloquentiam id.</p>
+							</div>
+						</div>
+					</div>
+					<!-- /row -->
+					<p class="text-center add_top_30 wow bounceIn" data-wow-delay="0.5s"><a href="{{ path('security_registration') }}" class="btn_1 rounded">Register Now</a></p>
+				</div>
+				<canvas id="hero-canvas" width="1920" height="1080"></canvas>
+			</div>
+			<!-- /wrapper -->
+		</div>
+		<!--/call_section-->
+		
+		<div class="container margin_80_55">
+			<div class="main_title_2">
+				<span><em></em></span>
+				<h2>Bon Plan App Available</h2>
+			</div>
+			<div class="row justify-content-center text-center">
+				<div class="col-md-6">
+					<img src="img/mobile.svg" alt="" class="img-fluid add_bottom_45">
+					<div class="app_icons">
+						<a href="#0" class="pr-lg-2"><img src="img/app_android.svg" alt=""></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /container -->
+
+		<div class="fb-customerchat" page_id="259359644117081" greeting_dialog_display="fade" ></div>
+
+
+{% endblock %}
+{% block javascripts %}
+<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId            : '799605953748779',
+				autoLogAppEvents : true,
+				xfbml            : true,
+				version          : 'v3.2'
+			});
+		};
+	</script>
+	
+	<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var searchRequest = null;
+        $("#plan").keyup(function() {
+            var minlength = 1;
+            var that = this;
+            var value = $(this).val();
+            var entitySelector = $("#plans").html('');
+            if (value.length >= minlength ) {
+                if (searchRequest != null)
+                    searchRequest.abort();
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('ajax_search_plan') }}",
+                    data: {
+                        'q' : value
+                    },
+                    dataType: "text",
+                    success: function(msg){
+                        //we need to check if the value is the same
+                        if (value==$(that).val()) {
+                            var result = JSON.parse(msg);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+                                    if (key == 'entities') {
+                                        if (id != 'error') {
+											entitySelector.append('<option value="' + value + '">');
+                                        } else {
+                                            entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                     }
+                });
+            }
+        });
+    });
+
+	jQuery(document).ready(function() {
+        var searchRequest = null;
+        $("#place").keyup(function() {
+            var minlength = 1;
+            var that = this;
+            var value = $(this).val();
+            var entitySelector = $("#locations").html('');
+            if (value.length >= minlength ) {
+                if (searchRequest != null)
+                    searchRequest.abort();
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('ajax_search_location') }}",
+                    data: {
+                        'q' : value
+                    },
+                    dataType: "text",
+                    success: function(msg){
+                        //we need to check if the value is the same
+                        if (value==$(that).val()) {
+                            var result = JSON.parse(msg);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+                                    if (key == 'entities') {
+                                        if (id != 'error') {
+											entitySelector.append('<option value="' + value + '">');
+                                        } else {
+                                            entitySelector.append('<li class="errorLi">'+value+'</li>');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                     }
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

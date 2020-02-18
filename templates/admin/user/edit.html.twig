@@ -1,0 +1,47 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+.form-control {
+    border : 0px
+}
+
+.custom-file-label { opacity: 0; }
+.custom-file-input { opacity: 1; }
+
+img{
+  width: 300px;
+  display: block;
+}
+
+.form-check{
+  padding-left: 1.25rem;
+}
+
+.form-check .form-check-label {
+  margin-left: 0px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Users</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item active">Edit User</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    {{ include('admin/user/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

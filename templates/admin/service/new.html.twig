@@ -1,0 +1,21 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}New Service{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Services</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">Service</li>
+                        <li class="breadcrumb-item active">new</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    {{ include('admin/service/_form.html.twig') }}
+
+{% endblock %}

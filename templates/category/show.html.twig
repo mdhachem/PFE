@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bon Plan{% endblock %}
+
+{% block stylesheets %}
+    <style>
+			
+  	</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="sub_header_in sticky_header">
+		<div class="container">
+			<h1>Search</h1>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /sub_header -->
+
+		<div class="container margin_60">
+			<div class="row justify-content-center">
+				<div class="col-lg-12">
+
+					
+
+					{% for plan in plans %}
+            <div class="strip list_view">
+						<div class="row no-gutters">
+							<div class="col-lg-5">
+								<figure>
+									<a href="{{ path('show.plan', { 'slug' : plan.slug , 'id' : plan.id }) }}"><img src="{{ asset('uploads/plans/'~plan.image) | imagine_filter('my_search_filter')}}" class="img-fluid" alt=""><div class="read_more"><span>Read more</span></div></a>
+									<small>{{ plan.category }}</small>
+								</figure>
+							</div>
+							<div class="col-lg-7">
+								<div class="wrapper">
+									<h3><a href="{{ path('show.plan', { 'slug' : plan.slug , 'id' : plan.id }) }}">{{ plan.name }}</a></h3>
+									<small>{{ plan.address }}, {{ plan.city.name }}, {{ plan.city.governorate.name }}</small>
+									<p>{{ plan.description | raw }}</p>
+								</div>
+								<ul>
+									<li><div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+        {% else %}
+            <div id="error_page">
+							<div class="wrapper">
+								<div class="container">
+									<div class="row justify-content-center text-center">
+										<div class="col-xl-7 col-lg-9">
+											<h2><i class="icon_error-triangle_alt"></i></h2>
+											<p>No Records Found</p>
+										</div>
+									</div>
+									<!-- /row -->
+								</div>
+								<!-- /container -->
+							</div>
+							<!-- /wrapper -->
+						</div>
+        {% endfor %}
+
+				{# display navigation #}
+				<div class="navigation">
+						{{ knp_pagination_render(plans) }}
+				</div>
+
+
+
+
+
+					
+				</div>
+			</div>		
+		</div>
+		<!-- /container -->
+
+
+
+
+		<div class="fb-customerchat" page_id="259359644117081" greeting_dialog_display="fade" ></div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId            : '799605953748779',
+				autoLogAppEvents : true,
+				xfbml            : true,
+				version          : 'v3.2'
+			});
+		};
+	</script>
+	<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+{% endblock %}

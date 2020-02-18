@@ -1,0 +1,47 @@
+{{ form_start(form) }}
+   
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    <div class="form-row">
+        {{ form_row(form.imageFile) }}
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.user) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.category) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.governorate) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.city) }}
+        </div>
+    </div>
+    <h6>Horaire :</h6>
+    <div class="form-row">
+        <div class="col">
+            {{ form_widget(form.startDay) }}
+        </div>
+        <div class="col">
+            {{ form_widget(form.finalDay) }}
+        </div>
+        <div class="col">
+           {{ form_widget(form.startTime) }}
+        </div>
+        <div class="col">
+            {{ form_widget(form.finalTime) }}
+        </div>
+    </div>
+
+    {{ form_row(form.services) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.telephone) }}
+     {{ form_row(form.isBooking) }}
+    
+
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in{% endblock %}
+
+{% block stylesheets %}
+<style>
+header.header_in ul#top_menu li a {
+    color: #fff;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+	
+	<div class="sub_header_in sticky_header">
+		<div class="container">
+			<h1>Account</h1>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /sub_header -->
+
+		<div class="container margin_60">
+			<div class="row justify-content-center">
+			<div class="col-xl-6 col-lg-6 col-md-8">
+				<div class="box_account">
+					<h3 class="client">Already Client</h3>
+					<div class="form_container">
+						
+
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                {{ error.messageKey | trans(error.messagedata, 'security') }}
+                            </div>
+                        {% endif %}
+
+                        <form method="post">
+                            <div class="form-group">
+                                <label for="username">Email</label>
+                                <input type="text" class="form-control" placeholder="Adresse email" name="_username" id="username" value="{{ last_username }}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" class="form-control" placeholder="Mot de passe" name="_password" id="password"/>
+                            </div>
+							<div class="checkbox mb-3">
+								<label>
+									<input type="checkbox" value="remember-me"> Remember me
+								</label>
+								<label>
+									<a href="{{ path('user_request_password_reset') }}">{{ 'user.forgot-password'|trans }}</a>
+								</label>
+							</div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        </form>
+					</div>
+					<!-- /form_container -->
+				</div>
+				
+			
+		</div>
+		<!-- /row -->
+		</div>
+		<!-- /container -->
+	
+	
+
+	
+	
+	
+
+{% endblock %}

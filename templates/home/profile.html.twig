@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block stylesheets %}
+<style>
+header.header_in ul#top_menu li a {
+    color: #fff;
+}
+</style>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="sub_header_in sticky_header">
+		<div class="container">
+			<h1>Profile</h1>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /sub_header -->
+	
+	<div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card mcard_3">
+                        <div class="body" style="text-align: center;margin-top: 100px;margin-bottom: 200px;">
+                            <a href="#"><img 
+                            src="{{user.image ? asset('/uploads/users/' ~ user.image)| imagine_filter('my_filter_150_150') : '/img/face.jpg' }}"
+                            class="rounded-circle shadow " alt="profile-image"></a>
+                            <h4 class="m-t-10">{{ user.firstname }} {{ user.lastname }} </h4>                            
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="social-links list-unstyled">
+                                        <li><a title="facebook" href="javascript:void(0);"><i class="zmdi zmdi-facebook"></i></a></li>
+                                        <li><a title="twitter" href="javascript:void(0);"><i class="zmdi zmdi-twitter"></i></a></li>
+                                        <li><a title="instagram" href="javascript:void(0);"><i class="zmdi zmdi-instagram"></i></a></li>
+                                    </ul>
+                                    <p class="text-muted">
+                                    {% if user.address %}
+                                    {{ user.address  }}
+                                    {% else %} 
+                                       Address Not Exist 
+                                    {% endif %}  
+                                    
+                                    </p>
+                                </div>
+                                <div class="col-6">                                    
+                                    <small>Email address: </small>
+                                    <h5>{{ user.email }}</h5>
+                                </div>
+                                <div class="col-6">                                    
+                                    <small>Phone: </small>
+                                    <h5>{% if user.telephone %}
+                                    {{ user.telephone  }}
+                                {% else %} 
+                                    Not Exist 
+                                {% endif %} </h5>
+                                </div>                           
+                            </div>
+                        </div>
+                    </div>
+                                 
+                </div>        
+
+
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Dashboard - Settings{% endblock %}
+
+{% block stylesheets %}
+<style>
+.custom-file-label { opacity: 0; }
+.custom-file-input { opacity: 1; }
+
+img{
+  width: 300px;
+  display: block;
+}
+
+.form-check{
+  padding-left: 1.25rem;
+}
+
+.form-check .form-check-label {
+  margin-left: 0px;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Content</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">Content</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    {% for message in app.flashes('success') %}
+         <div class="alert alert-success" aria-label="close">
+             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+             <strong>Success!</strong>
+             Settings has been saved!
+         </div>
+     {% endfor %}
+
+  {{ form_start(form) }}
+    {{ form_widget(form) }}
+  {{ form_end(form) }}
+
+{% endblock %}

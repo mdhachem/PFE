@@ -1,0 +1,125 @@
+{% extends 'base-partner.html.twig' %}
+
+{% block title %}Create new Plan{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+.custom-file-label { opacity: 0; }
+.custom-file-input { opacity: 1; }
+
+img{
+  width: 300px;
+  display: block;
+}
+
+.form-check{
+  padding-left: 1.25rem;
+}
+
+.form-check .form-check-label {
+  margin-left: 0px;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+
+
+	<div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Plan</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_partner') }}"><i class="zmdi zmdi-home"></i> Home</a></li>
+                        <li class="breadcrumb-item">Plan</li>
+                        <li class="breadcrumb-item active">new</li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+
+
+						    {{ form_start(form) }}
+							
+								{{ form_row(form.name) }}
+								{{ form_row(form.description) }}
+								<div class="form-row">
+									{{ form_row(form.imageFile) }}
+								</div>
+
+
+								{{ form_row(form.category) }}
+									
+								<div class="form-row">
+									<div class="col">
+										{{ form_row(form.governorate) }}
+									</div>
+									<div class="col">
+										{{ form_row(form.city) }}
+									</div>
+								</div>
+								<h6>Horaire :</h6>
+								<div class="form-row">
+									<div class="col">
+										{{ form_widget(form.startDay) }}
+									</div>
+									<div class="col">
+										{{ form_widget(form.finalDay) }}
+									</div>
+									<div class="col">
+									{{ form_widget(form.startTime) }}
+									</div>
+									<div class="col">
+										{{ form_widget(form.finalTime) }}
+									</div>
+								</div>
+
+								{{ form_row(form.services) }}
+								{{ form_row(form.address) }}
+								{{ form_row(form.telephone) }}
+								{{ form_row(form.isBooking) }}
+								
+
+								<button class="btn btn-success">{{ button_label|default('Save') }}</button>
+							{{ form_end(form) }}
+
+		
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+var $sport = $('#create_plan_governorate');
+
+$sport.change(function() {
+
+  var $form = $(this).closest('form');
+
+  var data = {};
+  data[$sport.attr('name')] = $sport.val();
+    //alert(JSON.stringify(data));
+
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    success: function(html) {
+
+      $('#create_plan_city').replaceWith(
+
+        $(html).find('#create_plan_city')
+      );
+
+    }
+  });
+});
+
+</script>
+
+{% endblock %}

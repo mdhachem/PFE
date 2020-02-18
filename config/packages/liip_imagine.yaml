@@ -1,0 +1,60 @@
+liip_imagine:
+  # valid drivers options include "gd" or "gmagick" or "imagick"
+  driver: "gd"
+  filter_sets:
+    # an example thumbnail transformation definition
+    # https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html#create-thumbnails
+    my_search_filter:
+      # set your image quality defaults
+      jpeg_quality: 85
+
+      filters:
+        # scale and square the image to the given dimensions
+        thumbnail:
+          size: [460, 306]
+          mode: outbound
+          allow_upscale: true
+
+    my_filter_350_350:
+      # set your image quality defaults
+      jpeg_quality: 85
+
+      filters:
+        # scale and square the image to the given dimensions
+        thumbnail:
+          size: [250, 250]
+          mode: outbound
+          allow_upscale: true
+
+    my_filter_383_255:
+      # set your image quality defaults
+      jpeg_quality: 85
+
+      filters:
+        # scale and square the image to the given dimensions
+        thumbnail:
+          size: [383, 255]
+          mode: outbound
+          allow_upscale: true
+
+    my_filter_1200_250:
+      # set your image quality defaults
+      jpeg_quality: 85
+
+      filters:
+        # scale and square the image to the given dimensions
+        thumbnail:
+          size: [767, 350]
+          mode: outbound
+          allow_upscale: true
+
+    my_filter_150_150:
+      # set your image quality defaults
+      jpeg_quality: 85
+
+      filters:
+        # scale and square the image to the given dimensions
+        thumbnail:
+          size: [150, 150]
+          mode: outbound
+          allow_upscale: true

@@ -1,0 +1,103 @@
+{% extends 'base-partner.html.twig' %}
+
+{% block title %}Message show{% endblock %}
+
+
+{% block stylesheets %}
+    <style>
+
+        .table i {
+            margin-right: 6px;
+        }
+
+        .table img {
+            width: 150px !important;
+            height: 150px !important;
+            border-radius: 0 !important;
+        }
+
+        table {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        }
+
+         th {
+        background-color: #006DCC;
+        color: white;
+        }
+
+        tbody td {
+        background-color: #fff;
+        }
+
+        tr td:first-child,
+        tr th:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        }
+
+        tr td:last-child,
+        tr th:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        }
+    </style>
+  
+  
+{% endblock %}
+
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Booking</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_partner') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">Booking</li>
+                        <li class="breadcrumb-item active">show</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <table  id="photos" class="table table-hover c_table theme-color">
+
+        <tbody>
+            <tr>
+                <th>Emitter Full Name</th>
+                <td>{{ message.emitter.firstName }} {{ message.emitter.lastName }}</td>
+            </tr>
+
+            <tr>
+                <th>Emitter Email</th>
+                <td>{{ message.emitter.email }}</td>
+            </tr>
+
+            <tr>
+                <th>Date</th>
+                <td>{{ message.createdAt | date('d/m/Y')  }}</td>
+            </tr>
+
+            <tr>
+                <th>Content</th>
+                <td>{{ message.content }}</td>
+            </tr>
+
+            
+
+            
+
+
+            </tbody>
+    </table>
+
+    
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+{% endblock %}

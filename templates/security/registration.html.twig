@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Sing up{% endblock %}
+
+{% block stylesheets %}
+<style>
+header.header_in ul#top_menu li a {
+    color: #fff;
+}
+</style>
+{% endblock %}
+
+
+{% block body %}
+
+		
+	<div class="sub_header_in sticky_header">
+		<div class="container">
+			<h1>Account</h1>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /sub_header -->
+
+		<div class="container margin_60">
+			<div class="row justify-content-center">
+			
+			<div class="col-xl-6 col-lg-6 col-md-8">
+				<div class="box_account">
+					<h3 class="new_client">New Customer or Partner</h3> 
+					<div class="form_container">
+						    {{ form_start(form)}}
+								{{ form_row(form.firstname,{'label':'First name'})}}
+								{{ form_row(form.lastname,{'label':'Last name'})}}
+                                {{ form_row(form.email,{'label':'Email'}) }}
+                                {{ form_row(form.password,{'label': 'Password'})}}
+                                {{ form_row(form.confirm_password,{'label':'Password confirmation'})}}
+								
+                                {{ form_row(form.role,{'label':'Type'})}}
+                                <button class="btn btn-success" type="submit">Sign up</button>
+                            
+                            {{ form_end(form)}}
+							</div>
+							<!-- /row -->
+							
+							<!-- /row -->
+						</div>
+						<!-- /privato -->
+						
+					</div>
+					<!-- /form_container -->
+				</div>
+				<!-- /box_account -->
+			</div>
+		</div>
+		<!-- /row -->
+		</div>
+		<!-- /container -->
+{% endblock body %}

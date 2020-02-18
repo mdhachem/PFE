@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="SPARKER - Premium directory and listings template by Ansonika.">
+        <meta name="author" content="Ansonika">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        <!-- Favicons-->
+        <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
+
+        <!-- GOOGLE WEB FONT -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">        <link href="/css/all.css" rel="stylesheet">
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/vendors.css" rel="stylesheet">
+
+        <!-- ALTERNATIVE COLORS CSS -->
+        <link href="#" id="colors" rel="stylesheet">
+        
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-11097556-8']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <style>
+            header.header_in ul#top_menu li a {
+                color: #fff;
+            }
+			
+            </style>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+	<div id="page">
+    <div id="page">
+		
+	<header class="header_in is_sticky menu_fixed">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-12">
+					<div id="logo">
+                    <a href="{{ path('home') }}" >
+						{{ render(controller(
+        'App\\Controller\\IncludesController::logoAction'
+    )) }}
+    </a>
+					</div>
+				</div>
+				<div class="col-lg-9 col-12">
+					<ul id="top_menu">
+                        {% if app.user %}
+                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="display: ruby;height: 45px;">
+                            <img style="width: 32px;height: 32px;border-radius: 100%;" src="{{app.user.image ? '/uploads/users/' ~ app.user.image : '/img/face.jpg' }}" alt="image">
+				            <span><p style="color: #fff;padding: 0 1px 15px 8px;font-size: 0.875rem;font-weight: 500;">{{ app.user.firstname }} {{ app.user.lastname }}</p></span>
+                        </button>
+                        <div class="dropdown-menu">
+                            {% for plan in app.user.plans  %}
+								<a class="dropdown-item" href="{{ path('show.plan', { 'slug' : plan.slug, 'id': plan.id  }) }}"><img style="border-radius: 50%" class="mr-2" src="/uploads/plans/{{plan.image}}" width="20" height="16" />{{plan.name}}</a>
+								<div class="dropdown-divider"></div>
+                            {% endfor %}
+                            {% for role in app.user.roles %}
+                                {% if role == 'ROLE_PARTNER' %}
+                                    <a class="dropdown-item" href="{{ path('partner_plan_create_new')  }}"><i class="fas fa-plus-circle mr-2 text-primary"></i>Create New Plan</a>
+                                    <div class="dropdown-divider"></div>
+									<a class="dropdown-item" href="{{ path('dashboard_partner')  }}"><i class="fas fa-tachometer-alt mr-2 text-primary"></i>Dashboard</a>
+                                    <div class="dropdown-divider"></div>
+                                {% endif %}
+
+								{% if role == 'ROLE_ADMIN' %}
+									<a class="dropdown-item" href="{{ path('dashboard_admin')  }}"><i class="fas fa-tachometer-alt mr-2 text-primary"></i>Dashboard</a>
+                                    <div class="dropdown-divider"></div>
+
+								{% endif %}
+                            {% endfor %}
+							<span>
+								
+                            	<a class="dropdown-item" href="{{ path('show.profile', { 'slug' : app.user.slug , 'id' : app.user.id }) }}"><i class="fas fa-user-circle mr-2 text-primary"></i>My Profile</a>
+                            </span>
+							<div class="dropdown-divider"></div>
+
+							<span>
+								
+                            	<a class="dropdown-item" href="{{ path('account') }}"><i class="fas fa-cogs mr-2 text-primary"></i>Setting</a>
+                            </span>
+							<div class="dropdown-divider"></div>
+							<span>
+								
+								<a class="dropdown-item" href="{{ path('security_logout') }}"><i class="fas fa-sign-out-alt mr-2 text-primary"></i>Signout</a>
+							</span>
+                        </div>
+                             
+                        {% else %}
+                            <li><a href="{{ path('security_login') }}" class="btn btn-primary">Log in </a></li>
+                            <li><a href="{{ path('security_registration') }}" class="btn btn-success">Sign in</a></li>
+                        {% endif %}
+		            </ul>
+					<!-- /top_menu -->
+					<a href="#menu" class="btn_mobile">
+						<div class="hamburger hamburger--spin" id="hamburger">
+							<div class="hamburger-box">
+								<div class="hamburger-inner"></div>
+							</div>
+						</div>
+					</a>
+					<nav id="menu" class="main-menu">
+                        <ul>
+							{% if app.user %}
+
+
+                            
+							{% else %}
+							<li><span><a href="{{ path('home') }}">Home</a></span></li>
+                            <li><span><a href="{{ path('products') }}">Products</a></span></li>
+                            <li><span><a href="{{ path('events') }}">Events</a></span></li>
+                            <li><span><a href="{{ path('contact') }}">Contact</a></span></li>
+							{% endif %}
+                        </ul>
+                    </nav>
+				</div>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->		
+	</header>
+	<!-- /header -->
+
+        <main class="pattern">
+            {% block body %}{% endblock %}
+        </main>
+	    <!-- /main -->
+
+
+
+		{{ render(controller(
+        'App\\Controller\\IncludesController::footerAction'
+    )) }}
+        
+	</div>
+	<!-- page -->
+        <div id="toTop"></div><!-- Back to top button -->
+        <!-- COMMON SCRIPTS -->
+        <script src="/js/common_scripts.js"></script>
+        <script src="/js/functions.js"></script>
+        <script src="/assets/validate.js"></script>
+        
+        <!-- SPECIFIC SCRIPTS -->
+        <script src="/js/animated_canvas_min.js"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

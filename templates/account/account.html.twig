@@ -1,0 +1,176 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Account {% endblock %}
+
+{% block stylesheets %}
+<style>
+header.header_in ul#top_menu li a {
+    color: #fff;
+}
+
+.custom-file-label { opacity: 0; }
+.custom-file-input { opacity: 1; }
+
+.profile img{
+  width: 300px;
+  display: block;
+}
+
+.form-check{
+  padding-left: 1.25rem;
+}
+
+.form-check .form-check-label {
+  margin-left: 0px;
+}
+
+</style>
+
+
+
+{% endblock %}
+
+{% block body %}
+
+    <main role="main" style="margin-top: 30px">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 title_header">
+                    <h3> Profile Information </h3>
+
+                    {% for message in app.flashes('notice') %}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Success!</strong>  {{ message }}
+                        </div>
+                    {% endfor %}
+
+                    {% for message in app.flashes('password') %}
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Success!</strong>  {{ message }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+            <div class="row">
+
+                <div class="col-md-12 title_header">
+                    <h3>Profile Information </h3>
+                </div>
+            <div class="profile">
+                <div class="col-md-12">
+                    {{ form_start(form)}}
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="password">Email</label>
+                            <div class="col-md-7">
+                                {{ form_widget(form.email) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="password">Image</label>
+                            <div class="col-md-7">
+                                {{ form_widget(form.imageFile) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="password">First Name</label>
+                            <div class="col-md-7">
+                                {{ form_widget(form.firstname) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="password">Last Name</label>
+                            <div class="col-md-7">
+                                {{ form_widget(form.lastname) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="password">Address</label>
+                            <div class="col-md-7">
+                                {{ form_widget(form.address) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="password">Telephone</label>
+                            <div class="col-md-7">
+                                {{ form_widget(form.telephone) }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="offset-sm-3 col-md-7 pl-2">
+                                <button class="btn btn-primary" type="submit">Update Profile
+                                </button>
+                            </div>
+                        </div>
+
+                    {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12 title_header">
+                    <h3> Change Password </h3>
+                </div>
+
+                <div class="col-md-12">
+                    <form action="{{ url('change_password') }}" method="POST">
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="password">New Password</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="password" name="password" id="password" autocomplete="new-password" aria-autocomplete="list">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-3 col-form-label font-weight-bold text-right" for="confirmPassword">Confirm Password</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="password" name="confirmPassword" id="confirmPassword" autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="offset-sm-3 col-md-7 pl-2">
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-lock fa-sm"></i>&nbsp;&nbsp;Change Password
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-md-12 title_header">
+                    <h3> Delete Account </h3>
+                </div>
+
+                <div class="col-md-12">
+                    <form action="{{ url('delete_account') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account?');">
+                        <div class="form-group">
+                            <p class="offset-sm-3 col-md-7 pl-2">You can delete your account, but keep in mind this action is irreversible.</p>
+                            <div class="offset-sm-3 col-md-7 pl-2">
+                                <button class="btn btn-danger" type="submit">
+                                    <i class="fa fa-trash fa-sm"></i>&nbsp;&nbsp;Delete my account
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+{% endblock %}

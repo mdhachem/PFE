@@ -1,0 +1,21 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Category</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="zmdi zmdi-home"></i> Home</a></li>
+                        <li class="breadcrumb-item">Category</li>
+                        <li class="breadcrumb-item active">Edit</li>
+                    </ul>
+                </div> 
+            </div>
+        </div>
+
+    {{ include('admin/category/_form.html.twig', {'button_label': 'Update'}) }}
+
+{% endblock %}

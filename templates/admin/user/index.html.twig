@@ -1,0 +1,162 @@
+{% extends 'base-admin.html.twig' %}
+
+
+{% block title %}Management Users{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+        .table i {
+            margin-right: 6px;
+        }
+
+        table {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        }
+
+        thead th {
+        background-color: #006DCC;
+        color: white;
+        }
+
+        tbody td {
+        background-color: #EEEEEE;
+        }
+
+        tr td:first-child,
+        tr th:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        }
+
+        tr td:last-child,
+        tr th:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        }
+
+</style>
+
+{% endblock %}
+
+
+{% block body %}
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Users</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item active">List Users</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+          <div class="container-fluit">
+                {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="col">
+                        {{ form_row(form.email) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.firstname) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.lastname) }}
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary">Recherher</button>
+                    </div>
+                    {{ form_end(form) }}
+          </div>
+
+                
+
+        </div>
+
+    <table id="users" class="table table-hover c_table theme-color">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Image</th>
+                <th>Role</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>
+                {% if user.image %}
+                <img style="width: 75px;height: 75px;border-radius: 100%;" src="{{ asset('/uploads/users/'~user.image)| imagine_filter('my_filter_350_350') }}" /></td>
+                {% else %}
+                <img style="width: 75px;height: 75px;border-radius: 100%;" src="/img/face.jpg" /></td>
+                {% endif %}
+                <td>{% for role in user.roles %}
+                    {% if role == "ROLE_ADMIN" %}
+                        <span class="badge badge-success">Admin</span>
+                    {% elseif role == "ROLE_PARTNER" %}
+                       <span class="badge badge-danger">Partner</span>
+                    {% else %}
+                        <span class="badge badge-info">Customer</span>
+                    {% endif %}
+                {% endfor %}
+                </td>
+
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>
+                    <div class="btn-group mb-0">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="{{ path('user_edit', { 'id' : user.id }) }}"><i class="mdi mdi-pencil"></i>Edit</a>
+                          <a class="dropdown-item" href="{{ path('show.profile', { 'slug' : user.slug , 'id' : user.id }) }}"><i class="mdi mdi-eye"></i>View</a>
+                          <button data-id="{{ user.id }}" class="dropdown-item delete-user"><i class="mdi mdi-delete"></i>Delete</button>
+                       </div>
+					  </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(users, null, {}, {
+                'position': 'centered',
+                'size': 'medium',
+                'rounded': true,
+                }) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+const users = document.getElementById('users');
+
+if (users) {
+  users.addEventListener('click', e => {
+    if (e.target.className === 'dropdown-item delete-user') {
+      if (confirm('Are you sure?')) {
+        const id = e.target.getAttribute('data-id');
+
+        fetch(`/admin/user/delete/${id}`, {
+          method: 'DELETE'
+        }).then(res => window.location.reload());
+      }
+    }
+  });
+}
+
+</script>
+{% endblock %}

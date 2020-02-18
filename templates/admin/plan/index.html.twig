@@ -1,0 +1,139 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Management Plan{% endblock %}
+{% block stylesheets %}
+    <style>
+
+        .table i {
+            margin-right: 6px;
+        }
+
+        table {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        }
+
+        thead th {
+        background-color: #006DCC;
+        color: white;
+        }
+
+        tbody td {
+        background-color: #EEEEEE;
+        }
+
+        tr td:first-child,
+        tr th:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        }
+
+        tr td:last-child,
+        tr th:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        }
+    </style>
+  
+  
+{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Plan</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">Plan</li>
+                        <li class="breadcrumb-item active">list</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluit">
+                {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="col">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary">Recherher</button>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+
+        </div>
+
+    <table id="plans" class="table table-hover c_table theme-color">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plan in plans %}
+            <tr>
+                <td>{{ plan.name }}</td>
+                <td><img style="width: 150px;height: 150px;border-radius: 0px;" src="{{ asset('/uploads/plans/'~plan.image)| imagine_filter('my_filter_350_350') }}" /></td>
+                <td>{{ plan.description | raw}}</td>
+                <td>
+                    <div class="btn-group mb-0">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="{{ path('show.plan', { 'slug' : plan.slug , 'id' : plan.id }) }}"><i class="mdi mdi-eye"></i>View</a>
+                          <a class="dropdown-item" href="{{ path('plan_edit', {'id': plan.id}) }}"><i class="mdi mdi-pencil"></i>Edit</a>
+                          <button data-id="{{ plan.id }}" class="dropdown-item delete-plan"><i class="mdi mdi-delete"></i>Delete</button>
+                       </div>
+					  </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(plans, null, {}, {
+                'position': 'centered',
+                'size': 'medium',
+                'rounded': true,
+                }) }}
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+const plans = document.getElementById('plans');
+
+if (plans) {
+  plans.addEventListener('click', e => {
+    if (e.target.className === 'dropdown-item delete-plan') {
+      if (confirm('Are you sure?')) {
+        const id = e.target.getAttribute('data-id');
+
+        fetch(`/admin/plan/delete/${id}`, {
+          method: 'DELETE'
+        }).then(res => window.location.reload());
+      }
+    }
+  });
+}
+
+</script>
+
+
+{% endblock %}
+

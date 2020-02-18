@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block stylesheets %}
+<style>
+header.header_in ul#top_menu li a {
+    color: #fff;
+}
+</style>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="sub_header_in sticky_header">
+		<div class="container">
+			<h1>Products</h1>
+		</div>
+		<!-- /container -->
+</div>
+<!-- /sub_header -->
+
+	<main>
+		<div class="container margin_60_35">
+			
+			<div class="row">
+			{% for product in products %}
+				<div class="col-xl-4 col-lg-6 col-md-6">
+					<div class="strip grid">
+						<figure>
+							<a href="{{ path('show.plan.products', { 'slug' : product.plan.slug , 'id' : product.plan.id }) }}"><img src="{{ asset('uploads/products/'~product.image) | imagine_filter('my_filter_383_255') }}" width="383px" height="255px" class="img-fluid" alt=""><div class="read_more"><span>Read more</span></div></a>
+							<small>{{ product.plan.category.name }}</small>
+						</figure>
+						<div class="wrapper">
+							<h3><a href="{{ path('show.plan.products', { 'slug' : product.plan.slug , 'id' : product.plan.id }) }}">{{ product.name }}</a></h3>
+							<small>{{ product.plan.name }}</small>
+							<p>{{ product.description | raw }}</p>
+							<a class="address" href="{{ path('show.plan', { 'slug' : product.plan.slug , 'id' : product.plan.id }) }}" target="_blank">Show Plan</a>
+						</div>
+					</div>
+				</div>
+				<!-- /strip grid -->
+			{% endfor %}	
+			</div>
+			<!-- /row -->
+			
+		</div>
+		<!-- /container -->
+
+		{# display navigation #}
+		<div class="text-center">
+			<div class="navigation">
+				{{ knp_pagination_render(products, null, {}, {
+						'position': 'centered',
+						'size': 'medium',
+						'rounded': true,
+						}) }}
+			</div>
+		</div>
+		
+		
+	</main>
+	<!--/main-->
+
+
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId            : '799605953748779',
+				autoLogAppEvents : true,
+				xfbml            : true,
+				version          : 'v3.2'
+			});
+		};
+	</script>
+	<script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+{% endblock %}

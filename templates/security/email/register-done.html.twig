@@ -1,0 +1,9 @@
+{% extends 'security/email/email-layout.html.twig' %}
+
+{% block body_text %}
+{{ 'Register success' }}
+{% endblock %}
+
+{% block body_html_content %}
+    Welcome !! {{ success }}
+{% endblock %}

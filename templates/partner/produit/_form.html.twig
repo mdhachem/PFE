@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    <div class="form-row">
+        {{ form_row(form.imageFile) }}
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.price) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.plan) }}
+        </div>
+    </div>
+    
+    
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

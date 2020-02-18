@@ -1,0 +1,320 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ plan.name }}{% endblock %}
+
+{% block stylesheets %}
+    <style>
+    .hero_in.restaurant_detail{
+        background:url({{ asset('/uploads/plans/'~plan.image)| imagine_filter('my_filter_1200_250') }}) center center no-repeat;
+        background-size: 100% 350px;
+    }
+
+	.menu_nav {
+	background: #004dda;
+	padding: 15px 0;
+	}
+	.menu_nav.is_stuck {
+	z-index: 99;
+	width: 100% !important;
+	left: 0;
+	}
+	.menu_nav ul {
+	margin-bottom: 0;
+	}
+	.menu_nav ul li {
+	display: inline-block;
+	margin-right: 20px;
+	font-weight: 500;
+	font-size: 16px;
+	font-size: 1rem;
+	}
+	.menu_nav ul li a {
+	color: rgba(255, 255, 255, 0.5);
+	}
+	.menu_nav ul li a:hover {
+	color: #fff;
+	opacity: 1;
+	}
+	.menu_nav ul li a.active {
+	color: #fff;
+	}
+	.menu_nav ul li:last-child {
+	display: none;
+	}
+	@media (max-width: 575px) {
+	.menu_nav ul li:last-child {
+		display: inline-block;
+	}
+	}
+
+	.hero_in a.btn_edit {
+		position: absolute;
+		right: 20px;
+		bottom: 20px;
+		background-color: #fff;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		-ms-border-radius: 3px;
+		border-radius: 3px;
+		line-height: 1;
+		padding: 10px 15px;
+		color: #444;
+		font-weight: 500;
+		}
+		.hero_in a.btn_photos:hover {
+		color: #004dda;
+		}
+	
+  	</style>
+{% endblock %}
+
+{% block body %}
+		<div class="hero_in restaurant_detail">
+			<div class="wrapper">
+            {% if plan.photos %}
+				<span class="magnific-gallery">
+					<a href="/uploads/plans/{{ plan.image }}" class="btn_photos" title="Photo title" data-effect="mfp-zoom-in">View photos</a>
+                    {% for pic in plan.photos %}
+					<a href="/uploads/photos/{{pic}}" title="Photo title" data-effect="mfp-zoom-in"></a>
+                    {% endfor %}
+				</span>
+             {% endif %}
+			</div>
+		</div>
+		<!--/hero_in-->
+
+		
+		
+		<nav class="menu_nav">
+			<div class="container">
+				<ul class="clearfix">
+					<li><a href="#description" class="active">Home</a></li>
+                    <li><a href="{{ path('show.plan.products', { 'slug' : plan.slug , 'id' : plan.id }) }}">Products</a></li>
+					<li><a href="{{ path('show.plan.events', { 'slug' : plan.slug , 'id' : plan.id }) }}">Events</a></li>
+                    <li><a href="{{ path('show.plan.photos', { 'slug' : plan.slug , 'id' : plan.id }) }}">Photos</a></li>
+					<li><a href="{{ path('show.plan.reviews', { 'slug' : plan.slug , 'id' : plan.id }) }}">Reviews</a></li>
+
+					<li></li>
+
+
+				</ul>
+			</div>
+		</nav>
+
+		<div class="container margin_60_35">
+				<div class="row">
+				{% if plan.isBooking %}
+					{% if app.user %}
+
+					{% for role in app.user.roles %}
+                        {% if role == 'ROLE_USER' %}
+						<div class="col-lg-8">
+                        {% else %}
+						<div class="col-lg-12">
+						{% endif %}
+                    {% endfor %}
+						
+					{% else %}
+						<div class="col-lg-12">
+					{% endif %}
+				{% else %}
+					<div class="col-lg-12">
+				{% endif %}
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success" aria-label="close">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>Success!</strong>
+						Booking has been saved!
+					</div>
+				{% endfor %}
+
+				{% for message in app.flashes('send') %}
+					<div class="alert alert-success" aria-label="close">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>Success!</strong>
+						Message send 
+					</div>
+				{% endfor %}
+
+				{% for message in app.flashes('error') %}
+					<div class="alert alert-danger" aria-label="close">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+						<strong>Success!</strong>
+						Message Not send 
+					</div>
+				{% endfor %}
+					
+					
+						<section id="description">
+							<div class="detail_title_1">
+								<h1>{{ plan.name }}</h1>
+								<a class="address" href="#">{{ plan.address }}, {{ plan.city }}, {{ plan.city.governorate }} </a><br>
+								{% if app.user %}<a href="#sign-in-dialog" id="sign-in" class="btn btn-success" >Send Message</a>{% endif %}
+							</div>
+							<p>{{ plan.description | raw }}</p>
+							<h5 class="add_bottom_15">Services</h5>
+							<div class="row add_bottom_30">
+                                
+								<div class="col-md-6">
+									<ul class="bullets">
+									{% if plan.services is not empty  %}
+										{% for service in plan.services %}
+											<li>{{ service }}</li>
+										{% endfor %} 
+									{% else %}
+										<p>Not Services Found</p>
+									{% endif %}
+									</ul>
+								</div>
+							</div>
+							<!-- /row -->						
+							<div class="opening">
+                                <i class="icon_clock_alt"></i>
+                                <h4>Opening Hours</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul>
+                                            <li>Monday <span>{{ plan.startDay == 0 ? plan.startTime|date('H:i')  ~ ' AM - ' ~ plan.finalTime|date('H:i') ~ ' PM' : 'close' }}</span></li>
+                                            <li>Tuesday <span>{{ plan.startDay < 1 and plan.finalDay >= 1 ? plan.startTime|date('H:i')  ~ ' AM - ' ~ plan.finalTime|date('H:i') ~ ' PM' : 'close' }}</span></li>
+                                            <li>Wednesday <span>{{ plan.startDay < 2 and plan.finalDay >= 2 ? plan.startTime|date('H:i')  ~ ' AM - ' ~ plan.finalTime|date('H:i') ~ ' PM' : 'close' }}</span></li>
+                                            <li>Thursday <span>{{ plan.startDay < 3 and plan.finalDay >= 3 ? plan.startTime|date('H:i')  ~ ' AM - ' ~ plan.finalTime|date('H:i') ~ ' PM' : 'close' }}</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul>
+                                            <li>Friday <span>{{ plan.startDay < 4 and plan.finalDay >= 4 ? plan.startTime|date('H:i')  ~ ' AM - ' ~ plan.finalTime|date('H:i') ~ ' PM' : 'close' }}</span></li>
+                                            <li>Saturday <span>{{ plan.startDay < 5 and plan.finalDay >= 5 ? plan.startTime|date('H:i')  ~ ' AM - ' ~ plan.finalTime|date('H:i') ~ ' PM' : 'close' }}</span></li>
+                                            <li>Sunday <span>{{ plan.startDay < 6 and plan.finalDay >= 6 ? plan.startTime|date('H:i')  ~ ' AM - ' ~ plan.finalTime|date('H:i') ~ ' PM' : 'close' }}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /opening -->
+						{% if products %}
+						<div class="container margin_60_35">
+							<div class="main_title_3">
+								<span></span>
+								<h2>Products</h2>
+								<p>Show All Products</p>
+								<a href="{{ path('show.plan.products', { 'slug' : plan.slug , 'id' : plan.id }) }}">See all</a>
+							</div>
+							<div class="row add_bottom_30">
+								{% for prd in products %}
+								<div class="col-lg-3 col-sm-6">
+									<a href="#" class="grid_item small">
+										<figure>
+											<img src="{{ asset('uploads/products/'~prd.image)  }}" width="272" height="204" alt="">
+											<div class="info">
+												<h3>{{ prd.name }}</h3>
+											</div>
+										</figure>
+									</a>
+								</div>
+								{% else %}
+									<h6 style="margin-left: 31px;">no records found</h6>
+								{% endfor %}
+
+							</div>
+							<!-- /row -->
+							{% endif %}
+							
+							{% if events %}
+							<div class="main_title_3">
+								<span></span>
+								<h2>Events</h2>
+								<p>Show All Events</p>
+								<a href="{{ path('show.plan.events', { 'slug' : plan.slug , 'id' : plan.id }) }}">See all</a>
+							</div>
+							<div class="row add_bottom_30">
+								{% for event in events %}
+								<div class="col-lg-3 col-sm-6">
+									<a href="#" class="grid_item small">
+										<figure>
+											<img src="{{ asset('uploads/events/'~event.image)  }}" width="272" height="204" alt="">
+											<div class="info">
+												<h3>{{ event.name }}</h3>
+											</div>
+										</figure>
+									</a>
+								</div>
+								{% endfor %}
+
+							</div>
+							<!-- /row -->
+							{%  endif %}
+
+						<!--
+							<hr>
+							<h3>Location</h3>
+							<div id="myMap" class="map map_single add_bottom_45"></div>
+					
+							-->
+						</section>
+						<!-- /section -->
+
+						</div>
+				{% if plan.isBooking %}
+					{% if app.user %}
+
+					{% for role in app.user.roles %}
+                        {% if role == 'ROLE_USER' %}
+						<aside class="col-lg-4" id="sidebar">
+							<div class="box_detail booking">
+							 {% if plan.category.name == "Hotels" %}
+							 	{{ include('plan/formBooking/hotel.html.twig') }}
+							 {% elseif  plan.category.name == "Restaurants & Café" %}
+							 	{{ include('plan/formBooking/restau.html.twig') }}
+							 {% else %}
+							 	{{ include('plan/formBooking/other.html.twig') }}
+							 {% endif %}
+
+							 
+							
+							</div>
+						</aside>
+                        {% endif %}
+                    {% endfor %}
+						
+					{% endif %}
+				{% endif %}
+						
+
+				</div>
+				<!-- /row -->
+		</div>
+		<!-- /container -->
+	{% if app.user %}
+		<!-- Sign In Popup -->
+	<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+		<div class="small-dialog-header">
+			<h3>Send Message</h3>
+		</div>
+		<form method="post" action="{{ path('message_send', { 'id' : plan.id}) }}">
+			<div class="sign-in-wrapper">
+					<div class="form-group">
+					  <label for="">Message</label>
+					  <textarea class="form-control" name="content"  rows="3"></textarea>
+					</div>
+
+					<input type="hidden" name="plan" value="{{ plan.user.id }}" />
+
+					<button type="submit" class="btn btn-success">Send</button>				
+			</div>
+		</form>
+		<!--form -->
+	</div>
+	<!-- /Sign In Popup -->
+	{% endif %}
+		
+
+	
+
+
+{% endblock %}
+
+{% block javascripts %}
+<!-- Google Map JS -->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnhgNBg6jrSuqhTeKKEFDWI0_5fZLx0vM" type="text/javascript"></script>
+		<script src="/js/gmap.min.js" type="text/javascript"></script>
+
+{% endblock %}

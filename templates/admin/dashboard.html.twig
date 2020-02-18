@@ -1,0 +1,99 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block body %}
+
+        <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                <i class="mdi mdi-home"></i>                 
+              </span>
+              Dashboard
+            </h3>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">Users
+                    <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_users }}</h2>
+                  <a class="btn btn-gradient-primary btn-fw" href="{{ path('user_index') }}" > Show </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
+                  <h4 class="font-weight-normal mb-3">Plan
+                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_plans }}</h2>
+                  <h6 class="card-text"><a class="btn btn-gradient-info btn-fw" href="{{ path('plan_index') }}" > Show </a></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                  <h4 class="font-weight-normal mb-3">Category
+                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_category }}</h2>
+                  <h6 class="card-text"><a class="btn btn-gradient-dark btn-fw" href="{{ path('category_index') }}" > Show </a></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">Services
+                    <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_services }}</h2>
+                  <a class="btn btn-gradient-success btn-fw" href="{{ path('service_index') }}" > Show </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
+                  <h4 class="font-weight-normal mb-3">Governorate
+                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_gov }}</h2>
+                  <h6 class="card-text"><a class="btn btn-gradient-dark btn-fw" href="{{ path('governorate_index') }}" > Show </a></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                  <h4 class="font-weight-normal mb-3">Cities
+                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_cities }}</h2>
+                  <h6 class="card-text"><a class="btn btn-gradient-danger btn-fw" href="{{ path('city_index') }}" > Show </a></h6>
+                </div>
+              </div>
+            </div>
+            
+
+        </div>
+
+{% endblock %}

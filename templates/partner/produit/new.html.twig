@@ -1,0 +1,60 @@
+{% extends 'base-partner.html.twig' %}
+
+{% block title %}New Produit{% endblock %}
+
+{% block stylesheets %}
+<style>
+
+.custom-file-label { opacity: 0; }
+.custom-file-input { opacity: 1; }
+
+img{
+  width: 300px;
+  display: block;
+}
+
+.form-check{
+  padding-left: 1.25rem;
+}
+
+.form-check .form-check-label {
+  margin-left: 0px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Product</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_partner') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">Product</li>
+                        <li class="breadcrumb-item active">New</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    {{ include('partner/produit/_form.html.twig') }}
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+
+
+$('form').submit( function(e){ 
+    e.submit();
+});
+
+
+</script>
+
+
+{% endblock %}
+

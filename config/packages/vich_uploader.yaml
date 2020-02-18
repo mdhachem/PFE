@@ -1,0 +1,57 @@
+vich_uploader:
+  db_driver: orm
+
+  mappings:
+    user:
+      uri_prefix: /uploads/users
+      upload_destination: "%kernel.project_dir%/public/uploads/users"
+      namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true
+
+    event:
+      uri_prefix: /uploads/events
+      upload_destination: "%kernel.project_dir%/public/uploads/events"
+      namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true
+
+    product:
+      uri_prefix: /uploads/products
+      upload_destination: "%kernel.project_dir%/public/uploads/products"
+      namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true
+
+    photo:
+      uri_prefix: /uploads/photos
+      upload_destination: "%kernel.project_dir%/public/uploads/photos"
+      namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true
+
+    plan:
+      uri_prefix: /uploads/plans
+      upload_destination: "%kernel.project_dir%/public/uploads/plans"
+      namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true
+
+    settings:
+      uri_prefix: /uploads/settings
+      upload_destination: "%kernel.project_dir%/public/uploads/settings"
+      namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true

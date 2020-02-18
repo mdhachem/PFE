@@ -1,0 +1,72 @@
+{% extends 'base-partner.html.twig' %}
+
+{% block title %}Dashboard Partner{% endblock %}
+
+{% block body %}
+
+        <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                <i class="mdi mdi-home"></i>                 
+              </span>
+              Dashboard
+            </h3>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>
+                  <h4 class="font-weight-normal mb-3">Plan
+                    <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{nb_plan }}</h2>
+                  <a class="btn btn-gradient-primary btn-fw" href="{{ path('partner_plan_index') }}" > Show </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                  
+                  <h4 class="font-weight-normal mb-3">Product
+                    <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_product }}</h2>
+                  <h6 class="card-text"><a class="btn btn-gradient-info btn-fw" href="{{ path('produit_index') }}" > Show </a></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                  <h4 class="font-weight-normal mb-3">Event
+                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_event }}</h2>
+                  <h6 class="card-text"><a class="btn btn-gradient-dark btn-fw" href="{{ path('plan_event_index') }}" > Show </a></h6>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 stretch-card grid-margin">
+              <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                  <img src="/admin/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image"/>                                    
+                  <h4 class="font-weight-normal mb-3">Photo
+                    <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                  </h4>
+                  <h2 class="mb-5">{{ nb_photo }}</h2>
+                  <h6 class="card-text"><a class="btn btn-gradient-dark btn-fw" href="{{ path('partner_photo_index') }}" > Show </a></h6>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends 'base-partner.html.twig' %}
+
+{% block title %}Photo index{% endblock %}
+
+
+{% block stylesheets %}
+    <style>
+
+        .table i {
+            margin-right: 6px;
+        }
+
+        .table img {
+            width: 150px !important;
+            height: 150px !important;
+            border-radius: 0 !important;
+        }
+
+        table {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        }
+
+         th {
+        background-color: #006DCC;
+        color: white;
+        }
+
+        tbody td {
+        background-color: #fff;
+        }
+
+        tr td:first-child,
+        tr th:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        }
+
+        tr td:last-child,
+        tr th:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        }
+    </style>
+  
+  
+{% endblock %}
+
+
+{% block body %}
+    <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management Booking</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_partner') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">Booking</li>
+                        <li class="breadcrumb-item active">show</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <table  id="photos" class="table table-hover c_table theme-color">
+
+        <tbody>
+            <tr>
+                <th>Plan Name</th>
+                <td>{{ booking.plan.name }}</td>
+            </tr>
+
+            <tr>
+                <th>At</th>
+                <td>{{ booking.startDate | date('d/m/Y') }}</td>
+            </tr>
+
+            <tr>
+                <th>To</th>
+                <td>{{ booking.finalDate | date('d/m/Y') }}</td>
+            </tr>
+
+            <tr>
+                <th>guests</th>
+                <td>{{ booking.guests }}</td>
+            </tr>
+
+            <tr>
+                <th>RoomType</th>
+                <td>{{ booking.RoomType }}</td>
+            </tr>
+
+            <tr>
+                <th>Menu</th>
+                <td>{{ booking.menu }}</td>
+            </tr>
+
+            <tr>
+                <th>User full Name</th>
+                <td>{{ booking.user.firstName }} {{ booking.user.lastName }} </td>
+            </tr>
+
+            <tr>
+                <th>User Email</th>
+                <td>{{ booking.user.email }} {{ booking.user.lastName }} </td>
+            </tr>
+
+            <tr>
+                <th>User Telephone</th>
+                <td>{{ booking.user.telephone }} </td>
+            </tr>
+
+
+
+            </tbody>
+    </table>
+
+    
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+{% endblock %}

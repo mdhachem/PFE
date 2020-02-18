@@ -1,0 +1,146 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Management Cities{% endblock %}
+
+{% block stylesheets %}
+    <style>
+
+        .table i {
+            margin-right: 6px;
+        }
+        
+        table {
+        border-collapse: separate;
+        border-spacing: 0 5px;
+        }
+
+        thead th {
+        background-color: #006DCC;
+        color: white;
+        }
+
+        tbody td {
+        background-color: #EEEEEE;
+        }
+
+        tr td:first-child,
+        tr th:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+        }
+
+        tr td:last-child,
+        tr th:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        }
+    </style>
+  
+  
+{% endblock %}
+
+{% block body %}
+
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>Management City</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('dashboard_admin') }}"><i class="mdi mdi-home menu-icon"></i> Home</a></li>
+                        <li class="breadcrumb-item">City</li>
+                        <li class="breadcrumb-item active">List</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+
+    <div class="container-fluit">
+                {{ form_start(form) }}
+                <div class="form-row">
+                    <div class="col">
+                        {{ form_row(form.name) }}
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-primary">Recherher</button>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+
+        </div>
+
+    <table id="cities" class="table table-hover c_table theme-color">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Governorate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for city in cities %}
+            <tr>
+                <td>{{ city.id }}</td>
+                <td>{{ city.name }}</td>
+                <td><span class="badge badge-danger">{{ city.governorate }}</span></td>
+                <td>
+                   <div class="btn-group mb-0">
+                      <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions</button>
+                      <div class="dropdown-menu">
+                          <a class="dropdown-item" href="{{ path('city_edit', {'id': city.id}) }}"><i class="mdi mdi-pencil"></i>Edit</a>
+                          <button data-id="{{ city.id }}" class="dropdown-item delete-city"><i class="mdi mdi-delete"></i>Delete</button>
+                       </div>
+					  </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(cities, null, {}, {
+                'position': 'centered',
+                'size': 'medium',
+                'rounded': true,
+                }) }}
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+const categories = document.getElementById('cities');
+
+if (categories) {
+  categories.addEventListener('click', e => {
+    if (e.target.className === 'dropdown-item delete-city') {
+      if (confirm('Are you sure?')) {
+        const id = e.target.getAttribute('data-id');
+
+        fetch(`/admin/city/delete/${id}`, {
+          method: 'DELETE'
+        }).then(res => window.location.reload());
+      }
+    }
+  });
+}
+
+$('form').submit( function(e){ 
+    e.submit();
+});
+
+
+
+</script>
+
+
+{% endblock %}
+
